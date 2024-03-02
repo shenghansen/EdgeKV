@@ -22,6 +22,7 @@ vendor/
 # IDE and editor files
 .vscode/
 .idea/
+.cache/
 *.sln
 *.vcxproj
 *.xcodeproj

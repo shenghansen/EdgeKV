@@ -4,9 +4,10 @@
 // spdlog
 #ifndef HIGH_PERFORMANCE
 #include "spdlog/spdlog.h"
+namespace utill {
 #define DEBUG(...)                                                             \
   SPDLOG_LOGGER_DEBUG(spdlog::default_logger_raw(), __VA_ARGS__)
-#define LOG(...) SPDLOG_LOGGER_INFO(spdlog::default_logger_raw(), __VA_ARGS__)
+#define INFO(...) SPDLOG_LOGGER_INFO(spdlog::default_logger_raw(), __VA_ARGS__)
 #define WARN(...) SPDLOG_LOGGER_WARN(spdlog::default_logger_raw(), __VA_ARGS__)
 #define ERROR(...)                                                             \
   SPDLOG_LOGGER_ERROR(spdlog::default_logger_raw(), __VA_ARGS__)
@@ -16,5 +17,5 @@
 #define WARN(...)
 #define ERROR(...)
 #endif
-
+}
 #endif

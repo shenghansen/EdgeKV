@@ -1,6 +1,7 @@
 #include "utill.h"
 #include <cassert>
 #include <leveldb/db.h>
+#include <string>
 
 class Level_db {
 private:
@@ -10,7 +11,7 @@ private:
 public:
   Level_db(const char *path);
   ~Level_db();
-  bool put(const char *key, const char *value);
-  bool get(const char *key, std::string &value);
-  bool del(const char *key);
+  bool put(const std::string &key, const std::string &value);
+  bool get(const std::string &key, std::string &value);
+  bool del(const std::string &key);
 };

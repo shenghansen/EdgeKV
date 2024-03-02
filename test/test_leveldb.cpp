@@ -1,13 +1,13 @@
+#include "utill/leveldb.h"
 #include <cassert>
 #include <iostream>
-#include <leveldb/db.h>
 
 void test_leveldb() {
   leveldb::DB *db;
   leveldb::Options options;
   options.create_if_missing = true;
   options.error_if_exists = true;
-  leveldb::Status status = leveldb::DB::Open(options, "/tmp/testdb", &db);
+  leveldb::Status status = leveldb::DB::Open(options, "/tmp/server", &db);
   if (!status.ok())
     std::cout << status.ToString() << std::endl;
 
@@ -27,6 +27,11 @@ void test_leveldb() {
 }
 
 int main(int argc, char const *argv[]) {
-  test_leveldb();
+  Level_db db("/tmp/server");
+  db.put("a", "b");
+  std::string value;
+  db.get("a", value);
+  std::cout << value << std::endl;
+
   return 0;
 }
