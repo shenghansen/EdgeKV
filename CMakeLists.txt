@@ -29,6 +29,7 @@ set(EDGE_SRCS
   ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
   ${CMAKE_SOURCE_DIR}/src/edge/client.cpp
 ${CMAKE_SOURCE_DIR}/src/edge/EdgeService.cpp
+${CMAKE_SOURCE_DIR}/src/edge/S3FIFO.cpp
 
 )
 

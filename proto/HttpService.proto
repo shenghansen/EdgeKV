@@ -1,0 +1,11 @@
+syntax="proto3";
+
+option cc_generic_services = true;
+message HttpRequest { };
+message HttpResponse { };
+ 
+service HttpService {
+      rpc Get(HttpRequest) returns (HttpResponse);
+      rpc Put(HttpRequest) returns (HttpResponse);
+      rpc Del(HttpRequest) returns (HttpResponse);
+};
