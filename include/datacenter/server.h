@@ -1,6 +1,8 @@
 #include "utill/KVService.pb.h"
+#include "utill/UpdateClient.pb.h"
 #include "utill/leveldb.h"
 #include "utill/utill.h"
+#include <brpc/channel.h>
 #include <brpc/server.h>
 #include <json2pb/pb_to_json.h>
 #include <string>
@@ -18,6 +20,8 @@ public:
   virtual void Del(google::protobuf::RpcController *cntl_base,
                    const DelRequest *request, DelResponse *response,
                    google::protobuf::Closure *done);
+  bool UpdateClient(std::string &client_address, bool exist, std::string &key,
+                    std::string &value);
 
   // optional
   static void CallAfterRpc(brpc::Controller *cntl,
@@ -34,4 +38,8 @@ public:
 
 private:
   Level_db *db;
+  // update client
+  brpc::Channel channel;
+  UpdateClientService_Stub *stub;
+  brpc::ChannelOptions options;
 };

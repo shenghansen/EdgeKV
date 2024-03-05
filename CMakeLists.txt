@@ -19,17 +19,21 @@ link_directories(/mnt/nvme0/home/shs/brpc/output/lib)
 set(DATACENTER_SRCS
   ${CMAKE_SOURCE_DIR}/src/datacenterKV.cpp
   ${CMAKE_SOURCE_DIR}/src/utill/leveldb.cpp
-  ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
   ${CMAKE_SOURCE_DIR}/src/datacenter/server.cpp
+  ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/UpdateClient.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/HttpService.pb.cc
 )
 
 set(EDGE_SRCS
   ${CMAKE_SOURCE_DIR}/src/edgeKV.cpp
   ${CMAKE_SOURCE_DIR}/src/utill/leveldb.cpp
-  ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
   ${CMAKE_SOURCE_DIR}/src/edge/client.cpp
-${CMAKE_SOURCE_DIR}/src/edge/EdgeService.cpp
-${CMAKE_SOURCE_DIR}/src/edge/S3FIFO.cpp
+  ${CMAKE_SOURCE_DIR}/src/edge/EdgeService.cpp
+  ${CMAKE_SOURCE_DIR}/src/edge/S3FIFO.cpp
+  ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/UpdateClient.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/HttpService.pb.cc
 
 )
 

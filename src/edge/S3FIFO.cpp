@@ -1,13 +1,16 @@
 #include "edge/S3FIFO.h"
 
-S3FIFO::S3FIFO(unsigned long cache_size) {
+S3FIFO::S3FIFO(const std::string &server, const std::string &load_balancer,
+               const std::string &protocol, const std::string &connection_type,
+               int timeout_ms, int max_retry, unsigned long cache_size) {
   this->cache_size = cache_size;
   s_cache_size = cache_size / 10;
   m_cache_size = cache_size - s_cache_size;
   INFO("created S3FIFO cache, cache_size:{}, s_cache_size:{}, m_cache_size:{}",
        cache_size, s_cache_size, m_cache_size);
 
-  this->client = new KVClient();
+  this->client = new KVClient(server, load_balancer, protocol, connection_type,
+                              timeout_ms, max_retry);
 }
 S3FIFO::~S3FIFO() { delete client; }
 
@@ -178,5 +181,13 @@ void S3FIFO::evictS() {
       G.insert({key, ghost_item(ghost_timestamp++)});
       return;
     }
+  }
+}
+
+void S3FIFO::updateCache(bool exist, string &key, string &value) {
+  auto it = cache.find(key);
+  if (it != cache.end()) {
+    it->second->is_exists = exist;
+    it->second->value = value;
   }
 }

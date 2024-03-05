@@ -1,0 +1,19 @@
+syntax="proto3";
+
+option cc_generic_services = true;
+
+message UpdateClientRequest {
+    bool exist = 1;
+    string key = 2;
+    string value = 3;
+
+};
+
+message UpdateClientResponse {
+    bool status = 1;
+};
+
+service UpdateClientService {
+      rpc Update(UpdateClientRequest) returns (UpdateClientResponse);
+
+};

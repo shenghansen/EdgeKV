@@ -23,7 +23,11 @@ public:
   using Queue = std::queue<string>;
   using Cache = std::unordered_map<string, cache_item *>;
   using Ghost = std::unordered_map<string, ghost_item>;
-  S3FIFO(unsigned long cache_size);
+  S3FIFO(const std::string &server = "0.0.0.0:8000",
+         const std::string &load_balancer = "",
+         const std::string &protocol = "baidu_std",
+         const std::string &connection_type = "", int timeout_ms = 10000,
+         int max_retry = 3, unsigned long cache_size = 1ULL << 10);
   ~S3FIFO();
   bool get(string &key, string &value);
   bool put(string &key, string &value);
@@ -31,6 +35,11 @@ public:
   void insert(string &key, cache_item *c_i);
   void evictM();
   void evictS();
+  void updateCache(bool exist, string &key, string &value);
+  static void updateS3FIFOCache(S3FIFO &cache, bool exist, string &key,
+                                string &value) {
+    cache.updateCache(exist, key, value);
+  };
 
 private:
   // rpc

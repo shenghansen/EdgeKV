@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]) {
   // service.client->del("111");
   // INFO(value);
   // INFO(service.client->get("111", value));
-  S3FIFO cache(1ULL << 10);
+  S3FIFO cache;
   string command;
   string key;
   string value = "";
