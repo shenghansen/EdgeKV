@@ -42,6 +42,6 @@ add_executable(edgeKV ${EDGE_SRCS})
 add_executable(testleveldb test/test_leveldb.cpp src/utill/leveldb.cpp)
 
 
-target_link_libraries(edgeKV spdlog leveldb snappy brpc protobuf)
+target_link_libraries(edgeKV spdlog leveldb snappy brpc protobuf gflags)
 target_link_libraries(datacenterKV spdlog leveldb snappy brpc protobuf gflags)
 target_link_libraries(testleveldb leveldb fmt)

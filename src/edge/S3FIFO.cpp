@@ -184,7 +184,7 @@ void S3FIFO::evictS() {
   }
 }
 
-void S3FIFO::updateCache(bool exist, string &key, string &value) {
+void S3FIFO::updateCache(bool exist, const string &key, const string &value) {
   auto it = cache.find(key);
   if (it != cache.end()) {
     it->second->is_exists = exist;

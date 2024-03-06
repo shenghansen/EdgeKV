@@ -1,4 +1,5 @@
 #include "S3FIFO.h"
+#include "utill/HttpService.pb.h"
 #include "utill/UpdateClient.pb.h"
 #include "utill/leveldb.h"
 #include <brpc/server.h>
@@ -7,12 +8,12 @@
 
 class UpdateClientServiceImpl : public UpdateClientService {
 public:
-  // UpdateClientServiceImpl();
+  UpdateClientServiceImpl(S3FIFO *cache);
   // virtual ~UpdateClientServiceImpl();
   virtual void Update(google::protobuf::RpcController *cntl_base,
-                      const GetRequest *request, GetResponse *response,
+                      const UpdateClientRequest *request,
+                      UpdateClientResponse *response,
                       google::protobuf::Closure *done);
-
   // optional
   static void CallAfterRpc(brpc::Controller *cntl,
                            const google::protobuf::Message *req,
@@ -25,26 +26,24 @@ public:
     json2pb::ProtoMessageToJson(*res, &res_str, NULL);
     LOG(INFO) << "req:" << req_str << " res:" << res_str;
   }
-};
-
-class EdgeService {
-public:
-  EdgeService(const std::string &server = "0.0.0.0:8000",
-              const std::string &load_balancer = "",
-              const std::string &protocol = "baidu_std",
-              const std::string &connection_type = "", int timeout_ms = 10000,
-              int max_retry = 3, unsigned long cache_size = 1ULL << 10);
-  ~EdgeService();
-  void run();
 
 private:
-  brpc::Server listen_datacenter_server;
-  UpdateClientServiceImpl *updateClientService;
-  S3FIFO cache;
-  // TODO httpserver
+  S3FIFO *cache;
+};
 
-  // unused
-  // KVClient *client;
-  // Level_db *db;
-  // std::unordered_set<std::string> uset;
+class HttpServiceImpl : public HttpService {
+public:
+  HttpServiceImpl(S3FIFO *cache);
+  virtual void Get(google::protobuf::RpcController *cntl_base,
+                   const HttpRequest * /*request*/, HttpResponse * /*response*/,
+                   google::protobuf::Closure *done);
+  virtual void Put(google::protobuf::RpcController *cntl_base,
+                   const HttpRequest * /*request*/, HttpResponse * /*response*/,
+                   google::protobuf::Closure *done);
+  virtual void Del(google::protobuf::RpcController *cntl_base,
+                   const HttpRequest * /*request*/, HttpResponse * /*response*/,
+                   google::protobuf::Closure *done);
+
+private:
+  S3FIFO *cache;
 };

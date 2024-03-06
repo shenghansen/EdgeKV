@@ -7,7 +7,7 @@
 
 class KVClient {
 public:
-  KVClient(const std::string &server = "0.0.0.0:8000",
+  KVClient(const std::string &server = "0.0.0.0:8001",
            const std::string &load_balancer = "",
            const std::string &protocol = "baidu_std",
            const std::string &connection_type = "", int timeout_ms = 10000,

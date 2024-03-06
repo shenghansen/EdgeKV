@@ -35,11 +35,7 @@ public:
   void insert(string &key, cache_item *c_i);
   void evictM();
   void evictS();
-  void updateCache(bool exist, string &key, string &value);
-  static void updateS3FIFOCache(S3FIFO &cache, bool exist, string &key,
-                                string &value) {
-    cache.updateCache(exist, key, value);
-  };
+  void updateCache(bool exist, const string &key, const string &value);
 
 private:
   // rpc
