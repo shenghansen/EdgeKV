@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "-march=native -g ${CMAKE_CXX_FLAGS}")
 
 #宏定义
 # add_definitions(-DHIGH_PERFORMANCE)
-
+add_definitions(-DPREFETCH)
 
 
 include_directories(include)
@@ -40,8 +40,15 @@ set(EDGE_SRCS
 add_executable(datacenterKV  ${DATACENTER_SRCS})
 add_executable(edgeKV ${EDGE_SRCS})
 add_executable(testleveldb test/test_leveldb.cpp src/utill/leveldb.cpp)
+add_executable(testclient test/test_client.cpp  ${CMAKE_SOURCE_DIR}/src/utill/leveldb.cpp
+  ${CMAKE_SOURCE_DIR}/src/edge/client.cpp
+  ${CMAKE_SOURCE_DIR}/src/edge/S3FIFO.cpp
+  ${CMAKE_SOURCE_DIR}/src/utill/KVService.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/UpdateClient.pb.cc
+  ${CMAKE_SOURCE_DIR}/src/utill/HttpService.pb.cc)
 
 
 target_link_libraries(edgeKV spdlog leveldb snappy brpc protobuf gflags)
 target_link_libraries(datacenterKV spdlog leveldb snappy brpc protobuf gflags)
 target_link_libraries(testleveldb leveldb fmt)
+target_link_libraries(testclient leveldb fmt spdlog leveldb snappy brpc protobuf gflags)

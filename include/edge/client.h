@@ -14,7 +14,9 @@ public:
            int max_retry = 3);
   ~KVClient();
   bool put(const std::string &key, const std::string &value);
-  bool get(const std::string &key, std::string &value);
+  bool get(bool &exist, const std::string &key, std::string &value);
+  bool getRange(bool &exist, int &num, const std::string &key,
+                std::string *key_list, std::string *value_list);
   bool del(const std::string &key);
 
 private:

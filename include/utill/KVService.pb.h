@@ -48,7 +48,7 @@ struct TableStruct_proto_2fKVService_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -61,6 +61,9 @@ extern DelRequestDefaultTypeInternal _DelRequest_default_instance_;
 class DelResponse;
 class DelResponseDefaultTypeInternal;
 extern DelResponseDefaultTypeInternal _DelResponse_default_instance_;
+class GetRangeResponse;
+class GetRangeResponseDefaultTypeInternal;
+extern GetRangeResponseDefaultTypeInternal _GetRangeResponse_default_instance_;
 class GetRequest;
 class GetRequestDefaultTypeInternal;
 extern GetRequestDefaultTypeInternal _GetRequest_default_instance_;
@@ -76,6 +79,7 @@ extern PutResponseDefaultTypeInternal _PutResponse_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::DelRequest* Arena::CreateMaybeMessage<::DelRequest>(Arena*);
 template<> ::DelResponse* Arena::CreateMaybeMessage<::DelResponse>(Arena*);
+template<> ::GetRangeResponse* Arena::CreateMaybeMessage<::GetRangeResponse>(Arena*);
 template<> ::GetRequest* Arena::CreateMaybeMessage<::GetRequest>(Arena*);
 template<> ::GetResponse* Arena::CreateMaybeMessage<::GetResponse>(Arena*);
 template<> ::PutRequest* Arena::CreateMaybeMessage<::PutRequest>(Arena*);
@@ -352,6 +356,7 @@ class GetResponse PROTOBUF_FINAL :
   enum : int {
     kValueFieldNumber = 1,
     kStatusFieldNumber = 2,
+    kExistFieldNumber = 3,
   };
   // string value = 1;
   void clear_value();
@@ -387,6 +392,15 @@ class GetResponse PROTOBUF_FINAL :
   void _internal_set_status(bool value);
   public:
 
+  // bool exist = 3;
+  void clear_exist();
+  bool exist() const;
+  void set_exist(bool value);
+  private:
+  bool _internal_exist() const;
+  void _internal_set_exist(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:GetResponse)
  private:
   class _Internal;
@@ -396,6 +410,218 @@ class GetResponse PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
   bool status_;
+  bool exist_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_proto_2fKVService_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetRangeResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetRangeResponse) */ {
+ public:
+  inline GetRangeResponse() : GetRangeResponse(nullptr) {};
+  virtual ~GetRangeResponse();
+
+  GetRangeResponse(const GetRangeResponse& from);
+  GetRangeResponse(GetRangeResponse&& from) noexcept
+    : GetRangeResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetRangeResponse& operator=(const GetRangeResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetRangeResponse& operator=(GetRangeResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetRangeResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetRangeResponse* internal_default_instance() {
+    return reinterpret_cast<const GetRangeResponse*>(
+               &_GetRangeResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(GetRangeResponse& a, GetRangeResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetRangeResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetRangeResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetRangeResponse* New() const final {
+    return CreateMaybeMessage<GetRangeResponse>(nullptr);
+  }
+
+  GetRangeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetRangeResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetRangeResponse& from);
+  void MergeFrom(const GetRangeResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetRangeResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetRangeResponse";
+  }
+  protected:
+  explicit GetRangeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_proto_2fKVService_2eproto);
+    return ::descriptor_table_proto_2fKVService_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kKeyFieldNumber = 2,
+    kValueFieldNumber = 3,
+    kExistFieldNumber = 1,
+    kStatusFieldNumber = 5,
+    kNumFieldNumber = 4,
+  };
+  // repeated string key = 2;
+  int key_size() const;
+  private:
+  int _internal_key_size() const;
+  public:
+  void clear_key();
+  const std::string& key(int index) const;
+  std::string* mutable_key(int index);
+  void set_key(int index, const std::string& value);
+  void set_key(int index, std::string&& value);
+  void set_key(int index, const char* value);
+  void set_key(int index, const char* value, size_t size);
+  std::string* add_key();
+  void add_key(const std::string& value);
+  void add_key(std::string&& value);
+  void add_key(const char* value);
+  void add_key(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& key() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_key();
+  private:
+  const std::string& _internal_key(int index) const;
+  std::string* _internal_add_key();
+  public:
+
+  // repeated string value = 3;
+  int value_size() const;
+  private:
+  int _internal_value_size() const;
+  public:
+  void clear_value();
+  const std::string& value(int index) const;
+  std::string* mutable_value(int index);
+  void set_value(int index, const std::string& value);
+  void set_value(int index, std::string&& value);
+  void set_value(int index, const char* value);
+  void set_value(int index, const char* value, size_t size);
+  std::string* add_value();
+  void add_value(const std::string& value);
+  void add_value(std::string&& value);
+  void add_value(const char* value);
+  void add_value(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& value() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_value();
+  private:
+  const std::string& _internal_value(int index) const;
+  std::string* _internal_add_value();
+  public:
+
+  // bool exist = 1;
+  void clear_exist();
+  bool exist() const;
+  void set_exist(bool value);
+  private:
+  bool _internal_exist() const;
+  void _internal_set_exist(bool value);
+  public:
+
+  // bool status = 5;
+  void clear_status();
+  bool status() const;
+  void set_status(bool value);
+  private:
+  bool _internal_status() const;
+  void _internal_set_status(bool value);
+  public:
+
+  // int32 num = 4;
+  void clear_num();
+  ::PROTOBUF_NAMESPACE_ID::int32 num() const;
+  void set_num(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_num() const;
+  void _internal_set_num(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetRangeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> key_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> value_;
+  bool exist_;
+  bool status_;
+  ::PROTOBUF_NAMESPACE_ID::int32 num_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_proto_2fKVService_2eproto;
 };
@@ -443,7 +669,7 @@ class PutRequest PROTOBUF_FINAL :
                &_PutRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(PutRequest& a, PutRequest& b) {
     a.Swap(&b);
@@ -623,7 +849,7 @@ class PutResponse PROTOBUF_FINAL :
                &_PutResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(PutResponse& a, PutResponse& b) {
     a.Swap(&b);
@@ -760,7 +986,7 @@ class DelRequest PROTOBUF_FINAL :
                &_DelRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(DelRequest& a, DelRequest& b) {
     a.Swap(&b);
@@ -913,7 +1139,7 @@ class DelResponse PROTOBUF_FINAL :
                &_DelResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(DelResponse& a, DelResponse& b) {
     a.Swap(&b);
@@ -1025,6 +1251,10 @@ class KVService : public ::PROTOBUF_NAMESPACE_ID::Service {
                        const ::GetRequest* request,
                        ::GetResponse* response,
                        ::google::protobuf::Closure* done);
+  virtual void GetRange(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::GetRequest* request,
+                       ::GetRangeResponse* response,
+                       ::google::protobuf::Closure* done);
   virtual void Put(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                        const ::PutRequest* request,
                        ::PutResponse* response,
@@ -1065,6 +1295,10 @@ class KVService_Stub : public KVService {
   void Get(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                        const ::GetRequest* request,
                        ::GetResponse* response,
+                       ::google::protobuf::Closure* done);
+  void GetRange(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::GetRequest* request,
+                       ::GetRangeResponse* response,
                        ::google::protobuf::Closure* done);
   void Put(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                        const ::PutRequest* request,
@@ -1276,6 +1510,238 @@ inline void GetResponse::_internal_set_status(bool value) {
 inline void GetResponse::set_status(bool value) {
   _internal_set_status(value);
   // @@protoc_insertion_point(field_set:GetResponse.status)
+}
+
+// bool exist = 3;
+inline void GetResponse::clear_exist() {
+  exist_ = false;
+}
+inline bool GetResponse::_internal_exist() const {
+  return exist_;
+}
+inline bool GetResponse::exist() const {
+  // @@protoc_insertion_point(field_get:GetResponse.exist)
+  return _internal_exist();
+}
+inline void GetResponse::_internal_set_exist(bool value) {
+  
+  exist_ = value;
+}
+inline void GetResponse::set_exist(bool value) {
+  _internal_set_exist(value);
+  // @@protoc_insertion_point(field_set:GetResponse.exist)
+}
+
+// -------------------------------------------------------------------
+
+// GetRangeResponse
+
+// bool exist = 1;
+inline void GetRangeResponse::clear_exist() {
+  exist_ = false;
+}
+inline bool GetRangeResponse::_internal_exist() const {
+  return exist_;
+}
+inline bool GetRangeResponse::exist() const {
+  // @@protoc_insertion_point(field_get:GetRangeResponse.exist)
+  return _internal_exist();
+}
+inline void GetRangeResponse::_internal_set_exist(bool value) {
+  
+  exist_ = value;
+}
+inline void GetRangeResponse::set_exist(bool value) {
+  _internal_set_exist(value);
+  // @@protoc_insertion_point(field_set:GetRangeResponse.exist)
+}
+
+// repeated string key = 2;
+inline int GetRangeResponse::_internal_key_size() const {
+  return key_.size();
+}
+inline int GetRangeResponse::key_size() const {
+  return _internal_key_size();
+}
+inline void GetRangeResponse::clear_key() {
+  key_.Clear();
+}
+inline std::string* GetRangeResponse::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:GetRangeResponse.key)
+  return _internal_add_key();
+}
+inline const std::string& GetRangeResponse::_internal_key(int index) const {
+  return key_.Get(index);
+}
+inline const std::string& GetRangeResponse::key(int index) const {
+  // @@protoc_insertion_point(field_get:GetRangeResponse.key)
+  return _internal_key(index);
+}
+inline std::string* GetRangeResponse::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:GetRangeResponse.key)
+  return key_.Mutable(index);
+}
+inline void GetRangeResponse::set_key(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:GetRangeResponse.key)
+  key_.Mutable(index)->assign(value);
+}
+inline void GetRangeResponse::set_key(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:GetRangeResponse.key)
+  key_.Mutable(index)->assign(std::move(value));
+}
+inline void GetRangeResponse::set_key(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:GetRangeResponse.key)
+}
+inline void GetRangeResponse::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:GetRangeResponse.key)
+}
+inline std::string* GetRangeResponse::_internal_add_key() {
+  return key_.Add();
+}
+inline void GetRangeResponse::add_key(const std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:GetRangeResponse.key)
+}
+inline void GetRangeResponse::add_key(std::string&& value) {
+  key_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:GetRangeResponse.key)
+}
+inline void GetRangeResponse::add_key(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:GetRangeResponse.key)
+}
+inline void GetRangeResponse::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:GetRangeResponse.key)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+GetRangeResponse::key() const {
+  // @@protoc_insertion_point(field_list:GetRangeResponse.key)
+  return key_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+GetRangeResponse::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:GetRangeResponse.key)
+  return &key_;
+}
+
+// repeated string value = 3;
+inline int GetRangeResponse::_internal_value_size() const {
+  return value_.size();
+}
+inline int GetRangeResponse::value_size() const {
+  return _internal_value_size();
+}
+inline void GetRangeResponse::clear_value() {
+  value_.Clear();
+}
+inline std::string* GetRangeResponse::add_value() {
+  // @@protoc_insertion_point(field_add_mutable:GetRangeResponse.value)
+  return _internal_add_value();
+}
+inline const std::string& GetRangeResponse::_internal_value(int index) const {
+  return value_.Get(index);
+}
+inline const std::string& GetRangeResponse::value(int index) const {
+  // @@protoc_insertion_point(field_get:GetRangeResponse.value)
+  return _internal_value(index);
+}
+inline std::string* GetRangeResponse::mutable_value(int index) {
+  // @@protoc_insertion_point(field_mutable:GetRangeResponse.value)
+  return value_.Mutable(index);
+}
+inline void GetRangeResponse::set_value(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:GetRangeResponse.value)
+  value_.Mutable(index)->assign(value);
+}
+inline void GetRangeResponse::set_value(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:GetRangeResponse.value)
+  value_.Mutable(index)->assign(std::move(value));
+}
+inline void GetRangeResponse::set_value(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  value_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:GetRangeResponse.value)
+}
+inline void GetRangeResponse::set_value(int index, const char* value, size_t size) {
+  value_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:GetRangeResponse.value)
+}
+inline std::string* GetRangeResponse::_internal_add_value() {
+  return value_.Add();
+}
+inline void GetRangeResponse::add_value(const std::string& value) {
+  value_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:GetRangeResponse.value)
+}
+inline void GetRangeResponse::add_value(std::string&& value) {
+  value_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:GetRangeResponse.value)
+}
+inline void GetRangeResponse::add_value(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  value_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:GetRangeResponse.value)
+}
+inline void GetRangeResponse::add_value(const char* value, size_t size) {
+  value_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:GetRangeResponse.value)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+GetRangeResponse::value() const {
+  // @@protoc_insertion_point(field_list:GetRangeResponse.value)
+  return value_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+GetRangeResponse::mutable_value() {
+  // @@protoc_insertion_point(field_mutable_list:GetRangeResponse.value)
+  return &value_;
+}
+
+// int32 num = 4;
+inline void GetRangeResponse::clear_num() {
+  num_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 GetRangeResponse::_internal_num() const {
+  return num_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 GetRangeResponse::num() const {
+  // @@protoc_insertion_point(field_get:GetRangeResponse.num)
+  return _internal_num();
+}
+inline void GetRangeResponse::_internal_set_num(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  num_ = value;
+}
+inline void GetRangeResponse::set_num(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_num(value);
+  // @@protoc_insertion_point(field_set:GetRangeResponse.num)
+}
+
+// bool status = 5;
+inline void GetRangeResponse::clear_status() {
+  status_ = false;
+}
+inline bool GetRangeResponse::_internal_status() const {
+  return status_;
+}
+inline bool GetRangeResponse::status() const {
+  // @@protoc_insertion_point(field_get:GetRangeResponse.status)
+  return _internal_status();
+}
+inline void GetRangeResponse::_internal_set_status(bool value) {
+  
+  status_ = value;
+}
+inline void GetRangeResponse::set_status(bool value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:GetRangeResponse.status)
 }
 
 // -------------------------------------------------------------------
@@ -1580,6 +2046,8 @@ inline void DelResponse::set_status(bool value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

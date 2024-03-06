@@ -43,6 +43,26 @@ bool Level_db::get(const std::string &key, std::string &value) {
   return status.ok();
 }
 
+bool Level_db::get_range(size_t &n, const std::string &key,
+                         std::string *key_list, std::string *value_list) {
+  leveldb::Iterator *it = db->NewIterator(leveldb::ReadOptions());
+  it->Seek(key);
+  n = 0;
+  while (it->Valid() && n < PREFETCH_RANGE) {
+    key_list[n] = it->key().ToString();
+    value_list[n] = it->value().ToString();
+    it->Next();
+    n++;
+  }
+  if (it->status().ok()) {
+    delete it;
+    return true;
+  }
+  WARN("get_range failed");
+  delete it;
+  return false;
+}
+
 bool Level_db::del(const std::string &key) {
   leveldb::Status status = db->Delete(leveldb::WriteOptions(), key);
   if (!status.ok()) {

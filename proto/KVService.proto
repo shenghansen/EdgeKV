@@ -9,6 +9,16 @@ message GetRequest {
 message GetResponse {
     string value = 1;
     bool status = 2;
+    bool exist =3;
+};
+
+message GetRangeResponse {
+    bool exist =1;
+    repeated string key = 2;
+    repeated string value = 3;
+    int32 num = 4;
+    bool status = 5;
+    
 };
 
 message PutRequest {
@@ -29,6 +39,7 @@ message DelResponse {
 
 service KVService {
       rpc Get(GetRequest) returns (GetResponse);
+      rpc GetRange(GetRequest) returns (GetRangeResponse);
       rpc Put(PutRequest) returns (PutResponse);
       rpc Del(DelRequest) returns (DelResponse);
 };

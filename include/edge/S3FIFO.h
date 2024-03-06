@@ -23,7 +23,7 @@ public:
   using Queue = std::queue<string>;
   using Cache = std::unordered_map<string, cache_item *>;
   using Ghost = std::unordered_map<string, ghost_item>;
-  S3FIFO(const std::string &server = "0.0.0.0:8000",
+  S3FIFO(const std::string &server = "0.0.0.0:8001",
          const std::string &load_balancer = "",
          const std::string &protocol = "baidu_std",
          const std::string &connection_type = "", int timeout_ms = 10000,

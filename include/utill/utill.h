@@ -18,4 +18,8 @@ namespace utill {
 #define ERROR(...)
 #endif
 }
+
+// prefetch range
+#define PREFETCH_RANGE 5
+
 #endif

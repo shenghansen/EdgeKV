@@ -31,17 +31,39 @@ bool S3FIFO::get(string &key, string &value) {
   } else {
     // cache miss
     miss++;
-    // request from datacenter
+// request from datacenter
+#ifdef PREFETCH
+    string *key_list = new string[PREFETCH_RANGE];
+    string *value_list = new string[PREFETCH_RANGE];
+    bool exist;
+    int num;
+    bool flag = client->getRange(exist, num, key, key_list, value_list);
+    if (flag) {
+      if (!exist) {
+        // if key don't exist,add negative search to cache
+        cache_item *c_i;
+        c_i = new cache_item("", exist);
+        // add data to cache
+        insert(key, c_i);
+      } else {
+        value = value_list[0];
+        for (size_t i = 0; i < num; i++) {
+          cache_item *c_i;
+          c_i = new cache_item(value_list[i], exist);
+          // add data to cache
+          insert(key_list[i], c_i);
+        }
+      }
+    }
+
+#else
     cache_item *c_i;
-    bool flag = client->get(key, value);
-    if (flag)
-      // datacenter has KV
-      c_i = new cache_item(value, true);
-    else
-      // datacenter don't have KV
-      c_i = new cache_item("", false);
+    bool exist;
+    bool flag = client->get(exist, key, value);
+    c_i = new cache_item(value, exist);
     // add data to cache
     insert(key, c_i);
+#endif
     INFO("get miss cache,request from datacenter");
     return flag;
   }

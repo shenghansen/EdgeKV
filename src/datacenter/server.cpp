@@ -32,9 +32,48 @@ void KVServiceImpl::Get(google::protobuf::RpcController *cntl_base,
   std::string value;
   if (db->get(request->key(), value)) {
     response->set_value(value);
+    response->set_exist(true);
+  } else {
+    response->set_exist(false);
+    response->set_value("");
+  }
+  response->set_status(true);
+}
+
+void KVServiceImpl::GetRange(google::protobuf::RpcController *cntl_base,
+                             const GetRequest *request,
+                             GetRangeResponse *response,
+                             google::protobuf::Closure *done) {
+  brpc::ClosureGuard done_guard(done);
+  brpc::Controller *cntl = static_cast<brpc::Controller *>(cntl_base);
+
+  // optional callback
+  cntl->set_after_rpc_resp_fn(
+      std::bind(&KVServiceImpl::CallAfterRpc, std::placeholders::_1,
+                std::placeholders::_2, std::placeholders::_3));
+
+  LOG(INFO) << "Received request[log_id=" << cntl->log_id() << "] from "
+            << cntl->remote_side() << " to " << cntl->local_side() << ": "
+            << request->key() << " (attached=" << cntl->request_attachment()
+            << ")";
+  std::string value;
+  size_t num;
+  std::string *key_list = new std::string[PREFETCH_RANGE];
+  std::string *value_list = new std::string[PREFETCH_RANGE];
+  if (!db->get(request->key(), value)) {
+    response->set_exist(false);
     response->set_status(true);
-  } else
-    response->set_status(false);
+    response->set_num(1);
+    return;
+  }
+  response->set_exist(true);
+  response->set_status(
+      db->get_range(num, request->key(), key_list, value_list));
+  response->set_num(num);
+  for (size_t i = 0; i < num; i++) {
+    response->add_key(key_list[i]);
+    response->add_value(value_list[i]);
+  }
 }
 
 void KVServiceImpl::Put(google::protobuf::RpcController *cntl_base,

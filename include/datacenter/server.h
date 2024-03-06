@@ -14,6 +14,9 @@ public:
   virtual void Get(google::protobuf::RpcController *cntl_base,
                    const GetRequest *request, GetResponse *response,
                    google::protobuf::Closure *done);
+  virtual void GetRange(google::protobuf::RpcController *cntl_base,
+                        const GetRequest *request, GetRangeResponse *response,
+                        google::protobuf::Closure *done);
   virtual void Put(google::protobuf::RpcController *cntl_base,
                    const PutRequest *request, PutResponse *response,
                    google::protobuf::Closure *done);

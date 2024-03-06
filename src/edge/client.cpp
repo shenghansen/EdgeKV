@@ -39,7 +39,7 @@ bool KVClient::put(const std::string &key, const std::string &value) {
   return false;
 }
 
-bool KVClient::get(const std::string &key, std::string &value) {
+bool KVClient::get(bool &exist, const std::string &key, std::string &value) {
   GetRequest request;
   GetResponse response;
   brpc::Controller cntl;
@@ -52,6 +52,7 @@ bool KVClient::get(const std::string &key, std::string &value) {
               << " (attached=" << cntl.response_attachment() << ")"
               << " latency=" << cntl.latency_us() << "us";
     if (response.status()) {
+      exist = response.exist();
       value = response.value();
       return true;
     }
@@ -60,6 +61,34 @@ bool KVClient::get(const std::string &key, std::string &value) {
   return false;
 }
 
+bool KVClient::getRange(bool &exist, int &num, const std::string &key,
+                        std::string *key_list, std::string *value_list) {
+  GetRequest request;
+  GetRangeResponse response;
+  brpc::Controller cntl;
+  request.set_key(key);
+
+  this->stub->GetRange(&cntl, &request, &response, NULL);
+  if (!cntl.Failed()) {
+    LOG(INFO) << "Received response from " << cntl.remote_side() << " to "
+              << cntl.local_side() << ": " << response.status()
+              << " (attached=" << cntl.response_attachment() << ")"
+              << " latency=" << cntl.latency_us() << "us";
+    if (response.status()) {
+      exist = response.exist();
+      if (exist) {
+        num = response.num();
+        for (size_t i = 0; i < num; i++) {
+          key_list[i] = response.key(i);
+          value_list[i] = response.value(i);
+        }
+      }
+      return true;
+    }
+  }
+  WARN("GET Failed ErrorText:{}", cntl.ErrorText());
+  return false;
+}
 bool KVClient::del(const std::string &key) {
   DelRequest request;
   DelResponse response;
