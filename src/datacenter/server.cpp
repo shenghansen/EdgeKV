@@ -129,7 +129,7 @@ bool KVServiceImpl::UpdateClient(std::string &client_address, bool exist,
 
   brpc::Channel channel;
   UpdateClientService_Stub *stub;
-  if (channel.Init("0.0.0.0:8000", "", &options) != 0) {
+  if (channel.Init("0.0.0.0:18808", "", &options) != 0) {
     LOG(ERROR) << "Fail to initialize channel";
     return false;
   }

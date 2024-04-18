@@ -105,7 +105,7 @@ void HttpServiceImpl::Get(google::protobuf::RpcController *cntl_base,
     // INFO("query:");
     // INFO("\nbody: {}", cntl->request_attachment());
     butil::IOBufBuilder os;
-    os << "key:" << key.c_str() << "value" << value.c_str();
+    os << "key:" << key.c_str() << ",value:" << value.c_str() << "\n";
     os.move_to(cntl->response_attachment());
   }
 }
@@ -125,14 +125,14 @@ void HttpServiceImpl::Put(google::protobuf::RpcController *cntl_base,
     }
     std::string key = *_key;
     std::string value = *_value;
-    cache->get(key, value);
+    cache->put(key, value);
     INFO("http put {}:{}", key, value);
 
     // body是纯文本
     cntl->http_response().set_content_type("text/plain");
 
     butil::IOBufBuilder os;
-    os << "key:" << key.c_str() << "value" << value.c_str();
+    os << "key:" << key.c_str() << ",value:" << value.c_str() << "\n";
     os.move_to(cntl->response_attachment());
   }
 }
